@@ -3,3 +3,4 @@ node_modules
 *.local
 .remote-assets
 components.d.ts
+assets
