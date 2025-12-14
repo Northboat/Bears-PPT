@@ -26,16 +26,16 @@ css: unocss
 
 
 
-
 <div class="abs-br m-6 flex gap-2">
   <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon:edit />
   </button>
-  <a href="https://github.com/Arkrypto" target="_blank" alt="GitHub"
+  <a href="https://github.com/Northboat" target="_blank" alt="GitHub"
     class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon-logo-github />
   </a>
 </div>
+
 
 ---
 
@@ -250,13 +250,13 @@ PGUS = 一个新的密码学原语 + 两个协议
 
 其中，SBS 是密码原语（核心创新点），后两个协议都是基于此的应用层协议
 
-> SBS = 盲签名 + 可擦除 + 可追踪
-
-| 属性        | 作用                 |
-| ----------- | -------------------- |
-| Blind       | CN 看不到 gNB 的证书 |
-| Sanitizable | gNB 可更新证书       |
-| Trace       | 多次作弊可被识别     |
+> <center><strong>SBS = 盲签名 + 可擦除 + 可追踪</strong></center>
+>
+> | 属性        | 作用                 |
+> | ----------- | -------------------- |
+> | Blind       | CN 看不到 gNB 的证书 |
+> | Sanitizable | gNB 可更新证书       |
+> | Trace       | 多次作弊可被识别     |
 
 <style>
 h2 {
@@ -271,7 +271,171 @@ h2 {
 </style>
 ---
 
-SBS 共分五个步骤：密钥生成（KGen）、数据提炼（Extract）、签名（Sign）、签名派生（Derive）和签名擦除（Sanit）
+SBS 共分七个步骤：密钥生成 KGen、**数据提炼 Extract**、签名 Sign、**签名派生 Derive**、签名擦除 Sanit、验签 Verify 和**追踪 Trace**（其中加粗的步骤是 SBS 在 Sanitizable Signatures 的基础上加入的）
+
+<div grid="~ cols-2 gap-4">
+<div>
+
+SBS 操作定义在椭圆曲线上，包括三个群、三个生成元和一个双线配对函数
+$$
+BG=(\boldsymbol{G_1},\boldsymbol{G_2},\boldsymbol{G_T},G_1,G_2,G_T,e,q)
+$$
+密钥生成 KGen：输出用于签名和擦除的公私钥对
+$$
+(pk_{sig},sk_{sig}),\, (pk_{san},sk_{san})\leftarrow KGen_{san}(1^\lambda,1^l)
+$$
+
+> - SPSEQ 指 Structure-Preserving Signatures on Equivalence Classes，结构保持的等价类签名，他允许在不重新签名的情况下，把签名**合法地迁移**到等价表示上（比如前文提到的可擦除的 RSA 签名）
+> - TRS 指 Traceable Ring Signatures，可追踪环签名
+
+</div>
+
+<div style="height:65%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+
+
+<img src="/cia-report/25-12-14/image-20251214191130031.png" style="margin-top: 20%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+</div>
+
+</div>
+
+---
+
+数据提炼 Extract：主要是把待签名的明文数据 $m$ 进行分块处理，并加入 $ADM$ 的判断，置空可擦除的字段，并输出用于签名的随机数组
+
+<div grid="~ cols-2 gap-4">
+<div>
+
+
+这个算法接收一个明文消息 $m\in\{0,1\}^*$，签名者的公钥 $pk_{sig}$ 和擦除者的公钥 $pk_{san}$，以及可擦除字段的描述 $ADM$
+
+$$
+(dt,st)\leftarrow Extract(ADM,m,pk_{sig},pk_{san})
+$$
+
+输出由随机数组 $x_i,y_i$ 生成的 $\boldsymbol{G_1}$ 上随机数据 $dt=(X_i,Y_i)\in\boldsymbol{G_1}$ 用作下一阶段的签名输入，用户自身保留根据明文 $m$ 分块的当前状态 $st$
+
+> - PKE 是指 Public Key Encryption，即普通的公钥加密
+
+</div>
+
+<div style="height:55%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251214190949514.png" style="margin-top: 25%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+</div>
+
+</div>
+
+---
+
+签名 Sign：签名算法输入数据 $dt$、签名私钥 $sk_{sig}$、清理公钥 $pk_{san}$，并输出签名 $\sigma_{inner}$，签名过程如下图所示
+
+<div style="height:35%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251214201215955.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+</div>
+
+对用户精炼后的数据 $dt=(X_i,Y_i)$ 利用 SPSEQ 签名私钥 $ssksig$ 进行 SPSEQ 签名，分别得到 $\pi_{SS}=(\mu,\eta)$
+
+再通过 TRS 签名，利用 TRS 签名私钥 $tsksig$ 对 TRS 签名公钥 $tpksig$、TRS 擦除公钥 $tpksan$ 以及 $\pi_{TRS}=pk_{sig}\,||\,pk_{san}\,||\,\pi_{SS}$ 进行签名，得到 $\sigma_{TRS}$
+
+最后输出签名结构
+$$
+\sigma_{inner}=(\pi_{SS},\sigma_{TRS})
+$$
+
+---
+
+签名派生 Derive
+
+<div style="height:20%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251214202749819.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+</div>
+
+---
+
+签名擦除 Sanit
+
+<div grid="~ cols-2 gap-4">
+<div>
+
+
+这个算法接收
+
+</div>
+
+<div style="height:55%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251214202816595.png" style="margin-top: 15%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+</div>
+
+
+</div>
+
+
+
+---
+
+验签 Verify
+
+<div style="height:35%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251214202834877.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+</div>
+
+
+
+---
+
+追踪 Trace
+
+<div style="height:35%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251214202853873.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+</div>
+
+
+
+---
+
+PGUS-AKA
+
+<div style="height:70%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+
+先由 gNB 执行 $SBS.Extract$ 生成匿名认证信息 $(dt,st)$
+
+<img src="/cia-report/25-12-14/image-20251214205131093.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+> - $Com_{ck'}$
+> - ZK.P 指 Zero-Knowledge Proof 零知识证明
+> - ZK.V 指
+
+</div>
+
+---
+
+<div style="height:70%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251214205205346.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+</div>
+
+<div style="height: 20%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+
+<img src="/cia-report/25-12-14/image-20251214205220374.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+</div>
+
+---
+
+PGUS-HO
+
+<div style="height:70%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+
+
+nmsl
+
+
+<img src="/cia-report/25-12-14/image-20251214205039131.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+wcnm
+
+</div>
 
 ---
 layout: center
@@ -339,7 +503,7 @@ layout: center
 class: text-center
 ---
 
-# Thinking in RFID
+# Thinking on RFID
 
 基于变色龙哈希实现受控身份更新的 RFID 权限转移
 
