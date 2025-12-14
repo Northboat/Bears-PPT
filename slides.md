@@ -394,14 +394,18 @@ $$
 
 ---
 
-PGUS-AKA
+**PGUS-AKA**
 
 <div style="height:70%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
 
 
 
-> 先由 gNB 执行 $SBS.Extract$ 生成匿名认证信息 $(dt,st)$
-
+> 系统注册阶段 gNB ↔ CN
+>
+> 1. gNB 生成证书（含身份，但被隐藏）
+> 2. CN 使用 **SBS 盲签名**
+> 3. CN **不知道 gNB 是谁**
+> 4. gNB 得到一个“合法但匿名”的凭证
 
 <img src="/cia-report/25-12-14/image-20251214205131093.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
 
@@ -413,25 +417,51 @@ PGUS-AKA
 
 ---
 
-<div style="height:70%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<div style="height:90%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+
+
+
+> 初始认证阶段
+>
+> - UE 看到的是 **被消毒后的 gNB 证书**
+> - CN 验证的是 **SBS 签名的合法性**
+> - 没有任何一方能完整掌握：
+>   - UE 身份
+>   - gNB 身份
+>   - 精确位置
+>
+> 同时仍然实现双向认证和会话密钥协商
+
 <img src="/cia-report/25-12-14/image-20251214223130190.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+> 追责阶段：匿名 ≠ 不可监管
+>
+> - 如果 gNB 使用同一消毒密钥多次服务
+> - 系统可通过 **SBS.Trace** 识别重复行为
+> - 从而防止 MNO 虚报用户数和保障 MVNO 计费公平
 
 </div>
 
 
 ---
 
-PGUS-HO
+**PGUS-HO**
 
-<div style="height:70%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<div style="height:80%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
 
 
-nmsl
 
+> **切换基站 ≠ 重新做一次重认证**
+>
+> gNB 通过 **SBS.Sanit** 对已有签名进行合法更新
+>
+> 结果是：
+>
+> - UE 无需重新暴露身份
+> - CN 仍然无法跟踪轨迹
+> - 切换延迟显著降低
 
 <img src="/cia-report/25-12-14/image-20251214205039131.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
-
-wcnm
 
 </div>
 
