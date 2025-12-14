@@ -397,9 +397,11 @@ $$
 PGUS-AKA
 
 <div style="height:70%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
->
+
+
+
 > 先由 gNB 执行 $SBS.Extract$ 生成匿名认证信息 $(dt,st)$
->
+
 
 <img src="/cia-report/25-12-14/image-20251214205131093.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
 
