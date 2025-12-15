@@ -301,6 +301,8 @@ $$
 
 ---
 
+<br>
+
 数据提炼 Extract：主要是把待签名的明文数据 $m$ 进行分块处理，并加入 $ADM$ 的判断，置空可擦除的字段，并输出用于签名的随机数组
 
 <div grid="~ cols-2 gap-4">
@@ -345,21 +347,33 @@ $$
 
 ---
 
-签名派生 Derive
+<br>
 
-<div style="height:20%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
-<img src="/cia-report/25-12-14/image-20251214202749819.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+签名派生 Derive：派生算法输入状态 $st$ 和内部签名 $\sigma_{inner}$，然后输出推导签名 $\sigma$
+
+<div style="margin-top: 7%; margin-bottom: 9%; height:25%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251214202749819.png" style="max-height: 100%; max-width: 100%; /* 防止图片超出div */">
 </div>
+
+
+
+本质上就是根据 gNB 的当前状态 $st$，将内部签名 $\sigma_{inner}$ 中的 $\pi_{SS}$ 字段和 $st$ 中的 $\{h_i,X_i,Y_i\}_{i\in\{l\}},c$ 组合起来，变成一个能够标记当前 gNB 的状态签名 $\sigma_{SS}$，与 TRS 签名 $\sigma_{TRS}$ 共同构成当前签名
+
 
 ---
 
-签名擦除 Sanit
+签名擦除 Sanit：擦除算法输入明文 $m\in\{0, 1\}^*$，对 $m$ 的修改的修改指令 $MOD\in\boldsymbol{N}×\{0, 1\}^l$、签名 $\sigma$、公共签名密钥 $pk_{sig}$ 和擦除私钥 $sk_{san}$，然后输出清理后的消息 $m'$ 和 相应的清理签名 $\sigma'$
 
 <div grid="~ cols-2 gap-4">
 <div>
 
-
-这个算法接收
+> SBS.sanit 的执行过程：先修改明文 $m\rightarrow m'$，而后重随机化 $(X_i,Y_i)\rightarrow (X_i',Y_i')$，再根据重随机化的 $(X_i',Y_i')$ 对原有的签名 $\mu,\eta$ 进行 $SPSEQ.ChgRep$ 擦除，得到新签 $\pi_{SS}'=(\mu',\eta')$，最后将新的明文 $m'$ 和随机数进行绑定得到 $h_i'$
+>
+> 1. 允许“受控修改”消息内容：把旧消息 $m$ 合法地变成新消息 $m'$
+>2. 重随机化（rerandomization）整个签名表示：对所有中间群元素 $X_i, Y_i$ 进行随机指数变换，并同步调用 SPSEQ.ChgRep，得到新签名 $\sigma'$​，使其在数学上与旧签名等价，但在表示上完全不可链接
+> 3. 重新绑定“可验证关系”：sanit 最后还做了一件验证层面的关键工作，即更新 $h_i = H(i || pksan || m_i)^{\zeta_i}$，确保 verifier 还能检查“签名 ⇔ 当前消息”的正确绑定
+>
+> 在这一复杂的 Sanit 变换中，SBS 实现了：匿名性（明文被重组隐藏）；每次更新无需“重新签名”；不允许“关联会话”（重随机化导致不可链接）；保留了追责能力（擦除者使用同一把擦除私钥）
 
 </div>
 
@@ -374,70 +388,90 @@ $$
 
 ---
 
-验签 Verify
+验签 Verify：验签算法输入消息 $m$、签名 $\sigma$、签名公钥 $pk_{sig}$、擦除公钥 $pk_{san}$，然后输出位 $b\in\{0, 1\}$，如果有效性成立则输出 1，否则输出 0
 
 <div style="height:35%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
 <img src="/cia-report/25-12-14/image-20251214202834877.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
 </div>
 
 
+在签名 $\sigma$ 中得到随机数 $(X_i,Y_i)$ 和，从 $\pi_{SS}$ 中拿到签名 $(\mu,\eta)$，当下述验证全部通过时，验签成功
+
+1. 先判断 $Y_i$ 的合法性，要求所有 $Y_i\in\boldsymbol{G_1}$
+2. 在通过 $QPSEQ.Verify$ 根据签名公钥 $spksig$ 分别对 $(X_i,\mu)$ 和 $(Y_i,\eta)$ 进行验签
+3. 再根据擦除方的公钥 $pksan$ 进行双线性配对的验证 $e(X_i,h_i)\stackrel{?}{=}e(Y_i,H(i||[pksan||m_i]))$
+4. 最后再根据 TRS 的签名公钥和擦除公钥对 TRS 签名进行验证
+
+
+
 
 ---
 
-追踪 Trace
+追踪 Trace：追踪算法输入两个签名 $(\sigma,\sigma')$，以及签名公钥 $pk_{sig}$ 和擦除公钥 $pk_{san}$
 
 <div style="height:35%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
 <img src="/cia-report/25-12-14/image-20251214202853873.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
 </div>
+该算法输出以下字符串之一
 
+- "indep"
+- $pk_i\quad i\in\{sig,san\}$
+
+该算法应用非常灵活，如果任何一个公钥包含在环 T 中的成员想要证明一个签名 $\sigma$ 是或者不是自己生成的，他可以使用相同的私钥生成另一个不同的签名 $\sigma^*$，并将 $(\sigma,\sigma^*)$提交给 Trace 算法
+
+如果输出为 "indep"，则证明该签名不属于自己；如果输出是公钥 $pk_i$，则证明签名是由 $i\in\{sig, san\}$ 本身生成的
 
 
 ---
 
-**PGUS-AKA**
+**PGUS-AKA**：PGUS-AKA 要解决的是在 Thick MVNO 中 $gN\in MNO, CN\in MVNO$ 场景下，在 **gNB 匿名、CN 不可跟踪、UE 隐私保护、gNB 可追责**的前提下，完成 UE ↔ CN ↔ gNB 的双向认证与会话密钥协商
 
-<div style="height:70%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<div style="height:75%; width: 100%; margin-top: 3%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
 
 
 
-> 系统注册阶段 gNB ↔ CN
+
+> 系统注册阶段 gNB ↔ CN，首先是 gNB 发起注册请求
 >
-> 1. gNB 生成证书（含身份，但被隐藏）
-> 2. CN 使用 **SBS 盲签名**
-> 3. CN **不知道 gNB 是谁**
-> 4. gNB 得到一个“合法但匿名”的凭证
+> 1. gNB 首先根据自身标识 $id_{gNB}$ 和时间戳 $\tau$ 生成证书 $C_{gNB}$，而后根据 CN 公钥 $pk_{sig}^{CN}$ 对证书进行数据抽取得到 $(dt,st)$
+> 2. 而后根据随机数 $\mu$ 和伪名 $gid$ 生成一个承诺 $com_{gNB}$ 和一个零知识证明 $\pi_{ZK_{gNB}}$
+> 3. gNB 将 $dt||com_{gNB}||\pi_{ZK_{gNB}}$ 打包为 $M_1^{SR}$ 发送给 CN
 
-<img src="/cia-report/25-12-14/image-20251214205131093.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+<img src="/cia-report/25-12-14/image-20251214205131093.png" style="margin-left: 2%; margin-right: 2%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
 
-> - $Com_{ck'}$
-> - ZK.P 指 Zero-Knowledge Proof 零知识证明
-> - ZK.V 指
+> CN 收到 $M_1^{SR}$ 后，进行内部签名
+>
+> 1. CN 首先验证 gNB 的零知识证明，若通过
+> 2. 则根据 CN 的签名私钥和 gNB 的擦除公钥以及 gNB 发来的数据 $dt$ 生成签名 $\sigma_{inner}\leftarrow SBS.Sign(sk_{sig}^{CN},pk_{san}^{gNB},dt)$，并将签名作为 $M_2^{SR}$ 回送给 gNB
+>
+> gNB 收到内生签名 $\sigma_{inner}$ 后
+>
+> 1. 根据自身状态 $st$ 进行签名的派生：$SBS.Derive(st,\sigma_{inner})$
+> 2. 而后验证 $SBS.Verify$ 当前派生的签名 $\sigma_{fix}$ 是由自身公钥和 CN 公钥生成
 
 </div>
 
 ---
 
-<div style="height:90%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<div style="height:95%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
 
 
 
-> 初始认证阶段
+
+> 初始认证阶段，实现 UE 到 gNB 和 CN 的初次认证注册
 >
-> - UE 看到的是 **被消毒后的 gNB 证书**
-> - CN 验证的是 **SBS 签名的合法性**
-> - 没有任何一方能完整掌握：
->   - UE 身份
->   - gNB 身份
->   - 精确位置
+> 1. gNB 将擦除过的派生签名 $\sigma_{MOD}^{gNB}\leftarrow SBS.Sanit(\sigma_{fix},...)$ 和 gNB 的匿名证书 $C_{MOD}^{gNB}$ 发给 UE
+> 2. UE 验证证书合法性并检查 SBS 签名，若都通过，UE 则生成 PKE 的公私钥，计算自身的承诺 $com_{UE}$，零知识证明 $\pi_{ZK_UE}$ 和一个签名 $\sigma^{UE}，PK_U$ 发送给 gNB
+> 3. gNB 首先验证 UE 的签名确认身份，而后自身生成一份证明自身身份的签名 $\sigma^{gNB}$，连同 UE 信息 $\pi_{ZK_{UE}},com_{UE},PK_U$ 发送给 CN
+> 4. CN 首先验证 $\sigma^{gNB}$ 确认 gNB 身份，而后验证 UE 的零知识签名确认 UD 身份
 >
-> 同时仍然实现双向认证和会话密钥协商
 
 <img src="/cia-report/25-12-14/image-20251214223130190.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
 
 > 追责阶段：匿名 ≠ 不可监管
 >
 > - 如果 gNB 使用同一消毒密钥多次服务
-> - 系统可通过 **SBS.Trace** 识别重复行为
+> - 系统可通过 **SBS.Trace** 去识别 gNB 通过派生密钥 $\sigma_{fix}$ 的重复“报账”行为
 > - 从而防止 MNO 虚报用户数和保障 MVNO 计费公平
 
 </div>
