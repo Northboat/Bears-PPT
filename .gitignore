@@ -4,3 +4,4 @@ node_modules
 .remote-assets
 components.d.ts
 assets
+dist

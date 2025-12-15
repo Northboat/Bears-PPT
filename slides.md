@@ -13,7 +13,7 @@ transition: fade-out # slide-left
 css: unocss
 ---
 
-## 基于变色龙哈希和可擦除签名的认证协议分享
+## 基于变色龙哈希和可擦除签名的认证及权限移交协议分享
 
 <div class="pt-12">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
@@ -81,7 +81,7 @@ h1 {
 
 <h2>变色龙哈希</h2>
 
-变色龙哈希在椭圆曲线 ECC 上的实现，他能寻找哈希碰撞使哈希值保持不变
+变色龙哈希的私钥持有者能够轻易的找到哈希碰撞，以下是变色龙哈希在椭圆曲线 ECC 上的实现样例
 
 对于加密方，其持有私钥 $x\in Z_p$，有公钥 $(G\in G_1, Y=xG)$，定义一个变色龙哈希 $CH$ 为
 $$
@@ -113,7 +113,7 @@ h2 {
 
 <h2>可擦除签名</h2>
 
-可擦除签名 / 可净化签名在 RSA 上的实现，基于前文的变色龙哈希 $CH(m,r)$，他能够擦除明文中的特定内容并使签名仍然有效
+可擦除签名基于前文的变色龙哈希 $CH(m,r)$，能够修改明文和签名中的特定内容并保持签名的合法性，以下是一个可擦除签名在 RSA 上的实现样例
 
 签名参与者包括：签名者、擦除者和验签者
 
@@ -458,28 +458,31 @@ $$
 
 
 
-> 初始认证阶段，实现 UE 到 gNB 和 CN 的初次认证注册
+> 初始认证阶段，建立 UE 到 gNB / CN 的信任
 >
 > 1. gNB 将擦除过的派生签名 $\sigma_{MOD}^{gNB}\leftarrow SBS.Sanit(\sigma_{fix},...)$ 和 gNB 的匿名证书 $C_{MOD}^{gNB}$ 发给 UE
 > 2. UE 验证证书合法性并检查 SBS 签名，若都通过，UE 则生成 PKE 的公私钥，计算自身的承诺 $com_{UE}$，零知识证明 $\pi_{ZK_UE}$ 和一个签名 $\sigma^{UE}，PK_U$ 发送给 gNB
 > 3. gNB 首先验证 UE 的签名确认身份，而后自身生成一份证明自身身份的签名 $\sigma^{gNB}$，连同 UE 信息 $\pi_{ZK_{UE}},com_{UE},PK_U$ 发送给 CN
-> 4. CN 首先验证 $\sigma^{gNB}$ 确认 gNB 身份，而后验证 UE 的零知识签名确认 UD 身份
+> 4. CN 首先验证签名 $\sigma^{gNB}$ 和 $\pi_{ZK_{UE}}$ 确认 gNB 和 UE 身份，都通过后，CN 随机生成一个通用标识符 $UID_i$ 作为切换阶段的用户标识符并存储在本地，再根据 UE 的公钥 $PK_u$ 对 CN 的签名 $\sigma^{CN}$，标识符 $UID$ 和一个时间戳 $\tau_4$ 加密发回给 UE
 >
 
-<img src="/cia-report/25-12-14/image-20251214223130190.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+<img src="/cia-report/25-12-14/image-20251214223130190.png" style="max-height: 100%; max-width: 100%; /* 防止图片超出div */">
 
+> 5. UE 利用私钥 $SK_u$ 解密 CN 消息获取 $UID$，并且验证 CN 的签名 $\sigma^{CN}$ 确认 CN 身份，建立与 gNB 和 CN 的信任
+>
+> <br><br><br><br><br>
+>
 > 追责阶段：匿名 ≠ 不可监管
 >
-> - 如果 gNB 使用同一消毒密钥多次服务
-> - 系统可通过 **SBS.Trace** 去识别 gNB 通过派生密钥 $\sigma_{fix}$ 的重复“报账”行为
-> - 从而防止 MNO 虚报用户数和保障 MVNO 计费公平
+> - 系统根据 $SBS.Trace(\sigma_{fix},\sigma_{MOD}^{gNB},pk_{sig}^{CN},pk_{san}^{gNB})$ 生成任意基站和 CN 之间的跟踪标识符 $tr$
+> - 当发生争议时，UE 能够通过在初始认证阶段获取的 $\sigma_{MOD}^{gNB}$ 和发起追责，结合基站的派生签名 $\sigma_{fix}$，计算第二份标识符 $tr'$ ，与相应的跟踪标识符 $tr$ 比对，即可跟踪到基站行为，从而防止 MNO 虚报用户数和保障 MVNO 计费公平
 
 </div>
 
 
 ---
 
-**PGUS-HO**
+**PGUS-HO**：确保用户 UE 在不同的网络基站 gNB 之间切换时，能够平稳过渡，且不会中断连接，防止链接攻击和冒充攻击并提供追踪机制
 
 <div style="height:80%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
 
@@ -487,17 +490,46 @@ $$
 
 > **切换基站 ≠ 重新做一次重认证**
 >
-> gNB 通过 **SBS.Sanit** 对已有签名进行合法更新
->
-> 结果是：
+> gNB 通过 **SBS.Sanit** 对 UE 已有签名进行合法更新，不需要经过 CN
 >
 > - UE 无需重新暴露身份
-> - CN 仍然无法跟踪轨迹
+>- CN 仍然无法跟踪轨迹
 > - 切换延迟显著降低
 
-<img src="/cia-report/25-12-14/image-20251214205039131.png" style="margin-top: 4%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+<img src="/cia-report/25-12-14/image-20251214205039131.png" style="margin-top: 4%; margin-right: 2%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+> 1. 目标基站更新其证书 $C^{gNB}_{MOD}$ 并通过 $SBS.Sanit$ 算法生成新的签名 $\sigma^{gNB}_{MOD}$，然后将新的证书和签名发送给用户 UE
+> 2. 用户设备 UE 验证新基站的证书和签名的有效性，生成新的公钥 $(PK_u,SK_u)$，并使用零知识证明（ZKP）携带其承诺 $com_{UE}$，通用标识符 $UID$ ，最后生成统一封装的签名 $\sigma^{UE}$ 返回基站
+> 3. 基站接收到用户设备的消息后，对时间戳和签名进行验证，并生成一个确认消息 $ACK$ 和相应的签名 $\sigma$，用用户设备的公钥 $PK_u$ 加密发回
+> 4. UE 收到密文后，进行解密，并对 gNB 的签名进行验证，实现本次认证流程，并且由于 UE 中保存了最新的 gNB 签名，后续的追责逻辑和 PGUS-AKA 中保持一致
 
 </div>
+
+---
+
+<h2>总结</h2>
+
+研究动机与目标
+
+- 论文的核心目标是解决 5G 网络中厚 MVNO 环境下的隐私和安全问题，整体的 5G 网络架构没变，但在新的场景中（基站与核心网络分离）讨论安全问题
+- 由于引入了新的不可信机构（核心网 CN 和基站 gNB 互不可信），老协议无法支撑新模式下的安全性，论文以此为立足点进行讨论
+
+论文没有提出一个完全新颖的架构，而是在现有技术框架下，通过增强现有协议的安全性，提出了符合 5G 未来发展的解决方案，这样写作的优势在于
+
+- 不需要证明已有的安全性，比如 UE 对 gNB 和 CN 的可信建立，因为在之前的论文中都已证明过了，只需要关注自己所提出来的这一部分的安全性，通过引入新的不可信或半可信机构，然后证明问题确实存在并且现有方案没有解决，论文就可以立足
+- 比如这篇论文主要就是关注：如何使 gNB 对 CN 匿名，同时满足可追责；并且由于性能也很好，所以是一篇 SP；如果跳出已有标准，需要证明整个系统方案的安全性，工作量大也不容易使人信服
+
+<style>
+h2 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 
 ---
 layout: center
@@ -528,6 +560,18 @@ h1 {
 
 
 
+<div style="margin-top: 2%; height:35%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251215201212369.png" style="margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+</div>
+
+在 5G 车联网系统中，车辆 UE 通过移动 5G 基站 gNB 连接到网络，这种连接容易受到多种安全漏洞的威胁，例如假基站（FBS）攻击以及基站间切换过程中效率低下等问题。此外，系统通常需要同时支持多个服务（例如紧急服务、信息娱乐、车辆诊断等），这使得传统的身份验证过程显得繁琐且低效
+
+论文中指出了几个主要的安全和效率问题
+
+1. **假基站（FBS）攻击：** 当恶意实体伪装成基站时，可能导致数据被截获或篡改
+2. **二次认证失败：** 传统的认证方法无法确保车辆在访问服务时的合法性，特别是在初次连接后
+3. **切换效率和安全问题：** 在高速行驶的车辆环境中，基站频繁切换会导致保证持续安全服务的延迟和风险
+
 <style>
 h2 {
   background-color: #2B90B6;
@@ -539,14 +583,36 @@ h2 {
   -moz-text-fill-color: transparent;
 }
 </style>
+---
+
+<br><br><br>
+
+论文提出的协议主要考虑以下几个安全问题
+
+1. **多服务访问认证：** 通过引入单次认证请求访问多个服务的机制，减少冗余处理，降低多凭证带来的安全风险
+2. **增强的密钥前向/后向保密性（KF/BS）：** 协议确保即使会话密钥被泄露，也无法推导出过去或未来的密钥，从而保护了历史通信会话的安全
+3. **隐私保护的无缝切换：** 在切换过程中加入安全措施，以防止 FBS 攻击，并确保车辆和基站的身份隐私保护
+4. **安全的基站切换机制：** 提出了安全的 g2g 信道，确保在基站切换时保持安全通信
+
+该系统与现有的 5G 架构兼容，只在控制平面消息中进行扩展，增强了部署的可行性和灵活性
+
 
 ---
 
 ## 方案介绍
 
+系统由三方构成：车辆 $V$、基站 $BS_i$ 和服务提供者 $SP_j$，协议分为三个阶段
 
+- 初始接入阶段（Initial Access Phase）：该阶段建立在对 $V2N\,MEC@gNB$ 框架的研究基础上，以执行所提出的二次认证
+- 安全的 G2G 信道建立阶段（Secure g2g Channel Establishment）：该阶段在现有 MEC 业务迁移研究的基础上，重新构建了 5G 切换准备阶段
+- 切换认证阶段（Handover Authentication Phase）：该阶段重构了 5G 切换执行阶段
 
+其中主要使用的密码原语包括 CRT、ECC 和 Chameleon Hash Function
 
+$SP_j$ 系统初始化
+
+- 发布公钥 $\{q,P,\boldsymbol{G},H_0,H_1,H_2,H_3,H_4,H_5,H_6,H_7,Y_{sp_j}\}$，其中 P 是 ECC 上一点，$\boldsymbol{G}$ 是加法子群，$H_i$ 是哈希函数，$Y_{sp_j}$ 是用于变色龙哈希的公钥
+- 保留私钥 $(k_{sp_j},x_{sp_j})$，均用于变色龙哈希
 
 <style>
 h2 {
@@ -559,6 +625,51 @@ h2 {
   -moz-text-fill-color: transparent;
 }
 </style>
+---
+
+初始接入阶段发生在车辆首次进入网络范围并试图通过 5G V2N2V 通信访问 V2X 服务时，核心目标：单请求多服务接入 + 车 - 基站 - 服务提供商间的双向认证 + 密钥协商
+
+<div style="margin-bottom:1%; height:35%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251215211856943.png" style="max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+</div>
+
+
+> 车辆 V 发起复合服务请求至基站 $BS_i$，并由基站 $BS_i$ 转发请求给服务提供者 $SP_j$，服务提供者 $SP_j$ 认证 V 和 $BS_i$ 身份，生成并回送会话密钥和 CRT 聚合参数 Cap
+>
+> 1. 车辆发请求：V 选择 m 个随机数（对应 m 个组件服务），计算聚合随机值 $R_1=\bigoplus r_j$，通过中国剩余定理（CRT）计算 $\gamma_1$，携伪身份（PID）、时间戳与随机数发送给基站
+> 2. 基站转发验证：验证车辆请求合法性，附加自身身份凭证，转发至 SP 组
+> 2. SP 双向认证：通过变色龙哈希等式验证车与基站身份，聚合服务能力参数 Cap，生成会话密钥（车 - SP、SP - 基站）并返回响应
+> 2. 车 - 基站建立连接：基站解密获取 Cap 并动态调整，与车辆完成双向认证 MA 和密钥协商，建立安全会话
+
+---
+
+安全的 G2G 信道建立阶段，核心目标：源基站 - 目标基站安全信道 + 预共享切换参数
+
+<div style="height:40%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251215213605778.png" style="margin-top: 5%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+</div>
+
+关键逻辑
+
+1. 源基站发起：指定目标基站，携带自身身份凭证（变色龙哈希参数）发送信道建立请求
+2. 目标基站响应：验证源基站身份，生成会话密钥（g2g），返回响应并附带完整性校验（MAC）
+3. 共享切换参数：建立双向安全隧道，源基站加密传输车辆能力（Cap）、临时身份（TID）、共享密钥（s₁）等切换参数，通知车辆准备切换
+
+---
+
+切换认证阶段，核心目标：快速双向认证 + 增强型 KF/BS + 防伪基站攻击（FBS）
+
+<div style="height:40%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251215213626255.png" style="margin-top: 7%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+</div>
+
+关键逻辑
+
+1. 车辆发起切换：基于预共享参数（s₁、TID），携带身份验证凭证，发送切换请求至目标基站
+2. 目标基站验证：验证车辆身份（变色龙哈希 + 临时参数校验），生成会话密钥，返回响应（含自身身份凭证）
+3. 完成切换：车辆验证目标基站身份，确认会话密钥完整性，动态调整服务能力，双方完成切换并准备下一轮 G2G 参数同步
+
 
 ---
 layout: center
@@ -588,25 +699,16 @@ h1 {
 
 > 标签 a 和阅读器 A 预留有认证数据（标签 a 属于阅读器 A），如何在不涉及后端服务器的情况下，标签 a 向阅读器 B 证明其合法性以及其所有权如何从 A 转移到 B
 
+方案考虑
 
+> - 离线验证 → 零知识证明：由于是标签向阅读器证明其合法性，所以需要标签来存储私钥，并且计算零知识证明给阅读器，这样的计算开销在 RFID 中是不被允许的
+> - 其次，阅读器大多仅作为消息的中转，不参与核心的认证逻辑，所以如果要考虑所有权的转移，引入后端服务器似乎是无法避免的
 
-<style>
-h2 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
+但这里的权限转换可以考虑，一般而言，我们认为阅读器与服务器之间是可信的，如果假设二者不可信，可以引入阅读器之间的权限转换，即标记标签是否能被当前阅读器组认证，例如
 
----
-
-<h2>方案考量</h2>
-
-
+> 1. 标签 a 属于阅读器组 A，能通过阅读器组 A 向服务器 S 证明自己的合法性
+> 2. 在某一次物流移交，标签 a 权限从阅读器组 A 转移到阅读器组 B
+> 3. 那么此时，阅读器 A 读取标签 a 将无法通过认证，而只能通过阅读器组 B 实现认证
 
 <style>
 h2 {
