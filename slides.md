@@ -630,6 +630,7 @@ h2 {
 初始接入阶段发生在车辆首次进入网络范围并试图通过 5G V2N2V 通信访问 V2X 服务时，核心目标：单请求多服务接入 + 车 - 基站 - 服务提供商间的双向认证 + 密钥协商
 
 <div style="margin-bottom:1%; height:35%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+
 <img src="/cia-report/25-12-14/image-20251215211856943.png" style="max-height: 100%; max-width: 100%; /* 防止图片超出div */">
 
 </div>
