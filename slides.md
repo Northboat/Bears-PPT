@@ -13,7 +13,7 @@ transition: fade-out # slide-left
 css: unocss
 ---
 
-## 基于变色龙哈希和可擦除签名的认证及权限移交协议分享
+## 基于变色龙哈希和可擦除签名的认证权限转移协议分享
 
 <div class="pt-12">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
@@ -607,13 +607,12 @@ h2 {
 
 作者把整个协议的生命周期拆成三个连续、状态可迁移的阶段
 
-> - 初始接入：该阶段建立在 V2N MEC 框架的基础上，重构了二次认证过程（新型 Secondary Authentication），完成 SP 到 gNB 和 V 的合法确认
-> - gNB–gNB 安全通道：该阶段在现有 MEC 业务迁移研究的基础上，重新构建了 5G 切换准备阶段，完成 gNB 之间的合法认证
-> - 切换认证：该阶段重构了 5G 切换执行阶段，实现 V 到不同 gNB 之间的切换
+> - 初始接入：该阶段建立在 V2N MEC 框架的基础上，重构了二次认证过程（新型 Secondary Authentication），完成 SP 到 gNB 和 V 的合法确认和接入
+> - gNB–gNB 安全通道：该阶段在现有 MEC 业务迁移研究的基础上，重新构建了 5G 切换准备阶段，完成 gNB 之间的合法认证，并在这一阶段预共享切换阶段所需的必要参数
+> - 切换认证：该阶段重构了 5G 切换执行阶段，实现 V 在不同 gNB 之间的安全快速切换
 
-每一阶段都**不重新信任第三方**，而是
+每一阶段都**不重新信任第三方**
 
-> - 状态前移
 > - 密钥只由当前参与方生成
 > - 避免“源 gNB → 目标 gNB”直接给 key
 
@@ -634,13 +633,14 @@ h2 {
 
 初始接入阶段：发生在车辆首次进入网络范围并试图通过基站 gNB 访问 SP 服务时，要一次性完成
 
-> 1. 车辆 ↔ 服务商 SP 的合法性确认：车辆对自身身份 PID 签名，SP 验签实现
-> 2. SP ↔ gNB 的合法性确认：gNB 通过对自身身份凭证签名，SP 验签实现
-> 3. 车辆 ↔ gNB 的相互认证：通过 SP 下发的会话密钥，对聚合服务能力参数 Cap 进行验证实现
-> 4. 多服务能力的“打包授权”：利用 CRT + ECC ElGamal 的同态性实现聚合参数的一次授权
+> 1. 车辆 ↔ 服务商 SP 的合法性确认：车辆伪名 PID + CH，SP 验证
+> 2. SP ↔ gNB 的合法性确认：gNB 通过对自身身份凭证签名 + CH，SP 验签
+> 3. 车辆 ↔ gNB 的相互认证：通过 SP 下发的会话密钥 KRS，对聚合服务能力参数 Cap 进行验证实现
+> 4. 多服务能力的“打包授权”：利用 CRT 的 ECC ElGamal 的同态性实现聚合参数的一次授权
 > 5. 建立后续可迁移的安全上下文：利用变色龙哈希值作为长期身份相关的“承诺值”
 
-<div style="margin-bottom:1%; height:70%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<div style="height:60%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+
 
 <img src="/cia-report/25-12-14/image-20251215211856943.png" style="margin-right: 3%; max-height: 100%; max-width: 40%; /* 防止图片超出div */">
 
@@ -651,7 +651,7 @@ h2 {
 > - $\gamma_1=\bigoplus r_i$ 中隐式包含了所有服务的认证标签
 > - 每个 SP 通过检查 $γ_1 \mod p_j$ 是否正确来认证车辆权限
 >
-> 为什么使用 CH 充当长期的身份承诺？
+> 为什么大量使用 Chameleon Hash？
 >
 > - SP 需要可追责（Traceability）：有 trapdoor → 能还原
 > - 其他实体不能伪造：无 trapdoor → 不能构造碰撞
@@ -661,33 +661,68 @@ h2 {
 
 ---
 
-安全的 G2G 信道建立阶段，核心目标：源基站 - 目标基
+安全的 G2G 信道建立阶段，核心目标：源基站 - 目标基站安全信道 + 预共享切换参数 + 增强型 KF/BS
 
-站安全信道 + 预共享切换参数
+> 为什么一定要单独设计 gNB–gNB 通道，引入一个显式的 gNB–gNB 认证阶段？核心立足点是认为 gNB 之间直接传递密钥不安全
+>
+> - 反对 $K_{gNB}$ 直接传给下一个 gNB
+> - 反对核心网每次都参与切换
+>
+> 可以把它理解为：$gNB_i$ 和 $gNB_j$ 像两个“用户”一样跑一次轻量 MA + DH
 
-<div style="height:40%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
-<img src="/cia-report/25-12-14/image-20251215213605778.png" style="margin-top: 5%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+<div style="margin-top: 5%; height:40%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251215213605778.png" style="margin-right: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+
+
+>
+> 关键逻辑
+>
+> 1. 切换的基站双方用 CH 验证对方身份
+> 2. 协商会话密钥 $sk_{bs_{ij}}$ 
+> 3. 通过 $sk_{bs_{ij}}$ 建立双向安全隧道，传输：下一条切换密钥密钥 $s_1$、车辆能力 Cap、UE 临时身份 TID、CH 变色龙哈希承诺值等切换参数
+>
+> 这一过程中
+>
+> - $gNB_j$ **无法**反推出 $gNB_i$ 与 UE 的旧 session key
+> - $gNB_i$ **无法**计算 $gNB_j$ 与 UE 的新 key
+>
+> 这就是论文反复强调的含 gNB 维度的 **“enhanced KF/BS”**
+
 </div>
 
-关键逻辑
 
-1. 源基站发起：指定目标基站，携带自身身份凭证（变色龙哈希参数）发送信道建立请求
-2. 目标基站响应：验证源基站身份，生成会话密钥（g2g），返回响应并附带完整性校验（MAC）
-3. 共享切换参数：建立双向安全隧道，源基站加密传输车辆能力（Cap）、临时身份（TID）、共享密钥（s₁）等切换参数，通知车辆准备切换
 
 ---
 
-切换认证阶段，核心目标：快速双向认证 + 增强型 KF/BS + 防伪基站攻击（FBS）
+切换认证阶段，核心目标：快速双向认证 + 防伪基站攻击（FBS）
 
-<div style="height:40%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
-<img src="/cia-report/25-12-14/image-20251215213626255.png" style="margin-top: 7%; margin-bottom: 4%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+> 现有 5G handover 的致命问题：RACH 二次认证阶段 **不认证 gNB**，UE 先信道，后安全 → Fake Base Station 攻击完全可行
+>
+> 作者的修法，在 RACH/RRC 早期引入
+>
+> - 基于 $s_1$ 的轻量认证
+> - V 和 gNB 之间的双向 CH 验证
+> - 即时会话密钥协商
+>
+> 这是整篇论文的核心改进点之一，在 g2g 阶段预共享参数，导致 Handover 的延迟极低，非常符合 V2N 场景
+
+<div style="margin-top: 4%; height:40%; width: 100%; /* 块级默认占满宽度，可自定义 */ display: flex; justify-content: center; align-items: center;">
+<img src="/cia-report/25-12-14/image-20251215213626255.png" style="margin-right: 2%; max-height: 100%; max-width: 100%; /* 防止图片超出div */">
+
+>
+> 切换流程
+>
+> 1. 车辆发起切换：基于预共享参数 $s_1,TID$，携带身份验证凭证，发送切换请求
+> 2. 目标基站验证：验证车辆身份（变色龙哈希 + 临时参数校验），生成会话密钥，返回响应（含自身身份凭证）
+> 3. 完成切换：车辆验证目标基站身份，确认会话密钥完整性，动态调整服务能力 Cap，双方完成切换并准备下一轮 g2g 参数同步
+>
+> 为什么 handover 不需要 SP 参与？
+>
+> - 所有 handover 所需状态和参数已在 Initial Access + g2g 阶段准备好
+> - 且关键的认证参数 $s_1$​ 是、单次、不可回推且不可预测
+
 </div>
-
-关键逻辑
-
-1. 车辆发起切换：基于预共享参数（s₁、TID），携带身份验证凭证，发送切换请求至目标基站
-2. 目标基站验证：验证车辆身份（变色龙哈希 + 临时参数校验），生成会话密钥，返回响应（含自身身份凭证）
-3. 完成切换：车辆验证目标基站身份，确认会话密钥完整性，动态调整服务能力，双方完成切换并准备下一轮 G2G 参数同步
 
 
 ---
@@ -723,7 +758,7 @@ h1 {
 > - 离线验证 → 零知识证明：由于是标签向阅读器证明其合法性，所以需要标签来存储私钥，并且计算零知识证明给阅读器，这样的计算开销在 RFID 中是不被允许的
 > - 其次，阅读器大多仅作为消息的中转，不参与核心的认证逻辑，所以如果要考虑所有权的转移，引入后端服务器似乎是无法避免的
 
-但这里的权限转换可以考虑，一般而言，我们认为阅读器与服务器之间是可信的，如果假设二者不可信，可以引入阅读器之间的权限转换，即标记标签是否能被当前阅读器组读取和认证，例如
+但这里的权限转换可以考虑，一般而言，我们认为阅读器与服务器之间是可信的，若假设二者不可信，阅读器之间的权限转换可能存在一定价值（Fake Reader），在服务端标记标签是否能被当前阅读器组读取和认证，例如
 
 > 1. 标签 a 属于阅读器组 A，能通过阅读器组 A 向服务器 S 证明自己的合法性
 > 2. 在某一次物流移交，标签 a 权限从阅读器组 A 转移到阅读器组 B
