@@ -1,0 +1,60 @@
+                     |                   (      211            )                               2023.09    2026.06
+• GPA: 87/100
+             |                      |(       211           )                                             2019.09    2023.06
+• GPA: 3.7/4.0(          10%)                                          CET6
+•                                                              C/C++
+
+
+                                |                                                                           2025.6-2025.9
+•                                                                       xxlJob Prometheus
+
+•                                        http          gzip            CompletableFuture
+•
+•
+                                                      Redis
+•
+    consumer
+•
+          Caffeine
+
+      |                                                                                                     2025.2-2025.6
+                                                                                                                   AI
+
+
+•         JWT                   token                  api
+
+•
+•          WebSocket
+•          Gateway+Redis+XXL-JOB+CompletableFuture+LinkedBlockingQueue
+
+•                                       PPT
+                      QPS  2
+•       ElasticSearch  MySQL                     Redis+RocketMQ+OpenFeign
+              XXL-JOB
+• Spring Security+JWT
+         Mybatis-plus XXL-JOB Hutool WebSocket Nacos JWT Minio Swagger ElasticSearch Zipkin
+RocketMQ Spring Security Gateway Redis Openfeign
+      |                                                                        2024.10-2025.2
+
+
+
+•
+•          TransmittableThreadLocal
+•                                 +                                           +            +       DB
+                                                       /
+•                                                                  Redisson
+                         ;
+•                                            RocketMQ                                                          Redis
+
+•                                             +Redis Lua                            20 /3
+                   Sentinel                 QPS
+             SpringBoot + SpringCloudAlibaba + RocketMQ + ShardingSphere + Redis + MySQL + Sentinel
+
+•          java                                         JVM
+•          java                   synchorized ThreadLocal CAS
+•                SSM+SpringBoot               IOC AOP
+•          MySQL                SQL                         MVCC
+•          Redis
+•          RocketMQ   kafka
+•          Linux                      git docker
+
