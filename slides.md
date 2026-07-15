@@ -15,11 +15,13 @@ css: unocss
 
 <div class="pt-8 flex flex-col items-center gap-3">
   <p class="text-lg text-white font-semibold tracking-widest">2027届秋招 · 岗位信息汇总</p>
-  <div class="flex gap-3 mt-2">
+  <div class="flex gap-3 mt-2 flex-wrap justify-center">
     <span class="px-3 py-1 rounded-full text-xs font-bold bg-orange-500 text-white">🏢 大厂</span>
-    <span class="px-3 py-1 rounded-full text-xs font-bold bg-violet-500 text-white">🏬 中厂</span>
+    <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-white">🎮 游戏厂</span>
+    <span class="px-3 py-1 rounded-full text-xs font-bold bg-sky-500 text-white">🚗 车企</span>
+    <span class="px-3 py-1 rounded-full text-xs font-bold bg-violet-500 text-white">📱 硬件/手机厂</span>
     <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white">🏛 国央企</span>
-    <span class="px-3 py-1 rounded-full text-xs font-bold bg-sky-500 text-white">🔬 研究所</span>
+    <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-500 text-white">🔬 研究所</span>
   </div>
   <p class="text-sm mt-3 text-yellow-300 font-medium">投了个寂寞，祝大家上岸 🙏</p>
 </div>
@@ -34,7 +36,9 @@ h1 {
 
 # 目录
 
-<Toc></Toc>
+<div class="max-h-[350px] overflow-y-auto pr-2">
+  <Toc></Toc>
+</div>
 
 <style>
 h1 {
@@ -42,8 +46,6 @@ h1 {
 }
 </style>
 
----
-hideInToc: true
 ---
 
 # 简历汇总
@@ -99,7 +101,7 @@ layout: center
 class: text-center
 ---
 
-# 大厂
+# 互联网厂
 
 <p class="text-white mt-2">互联网 / 科技头部企业</p>
 
@@ -127,28 +129,20 @@ layout: center
 class: text-center
 ---
 
-# 中厂
+# 游戏厂
 
-<p class="text-white mt-2">中型互联网 / 科技企业</p>
+<p class="text-white mt-2">游戏 / 互动娱乐企业</p>
 
 <div class="flex justify-center gap-4 mt-8 flex-wrap">
-  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+  <div class="px-6 py-4 bg-amber-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
     <div class="text-3xl mb-1">🎮</div>
     <div class="text-sm font-bold text-white">米哈游</div>
   </div>
-  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
-    <div class="text-3xl mb-1">🎤</div>
-    <div class="text-sm font-bold text-white">科大讯飞</div>
-  </div>
-  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
-    <div class="text-3xl mb-1">📱</div>
-    <div class="text-sm font-bold text-white">OPPO</div>
-  </div>
-  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+  <div class="px-6 py-4 bg-amber-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
     <div class="text-3xl mb-1">⚔️</div>
     <div class="text-sm font-bold text-white">莉莉丝游戏</div>
   </div>
-  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+  <div class="px-6 py-4 bg-amber-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
     <div class="text-3xl mb-1">🔥</div>
     <div class="text-sm font-bold text-white">网易雷火</div>
   </div>
@@ -156,8 +150,8 @@ class: text-center
 
 <style>
 h1 {
-  background-color: #8b5cf6;
-  background-image: linear-gradient(45deg, #a78bfa 10%, #6d28d9 60%);
+  background-color: #f59e0b;
+  background-image: linear-gradient(45deg, #fbbf24 10%, #d97706 60%);
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -217,116 +211,6 @@ h1 {
   <div class="bg-slate-800 rounded-xl px-4 py-2.5 flex items-center justify-between shadow-lg shadow-slate-900/40">
     <span class="text-xs text-amber-300 font-semibold uppercase tracking-widest">专属内推码</span>
     <span class="text-xl font-black font-mono tracking-widest text-yellow-400">ST4G</span>
-  </div>
-</div>
-
-</div>
-
----
-
-## 科大讯飞
-
-<div class="grid grid-cols-5 gap-5 mt-4 h-70">
-
-<div class="col-span-2 bg-gradient-to-br from-violet-600 to-violet-900 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-violet-900/40">
-  <div>
-    <div class="text-4xl mb-3">🎤</div>
-    <div class="text-2xl font-black tracking-wide">科大讯飞</div>
-    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">iFlytek · 飞凡计划</div>
-  </div>
-  <div class="space-y-2 text-xs">
-    <div class="flex justify-between border-b border-white/15 pb-1.5">
-      <span class="opacity-50">岗位</span><span class="font-semibold">研发 / 产品 / 营销</span>
-    </div>
-    <div class="flex justify-between border-b border-white/15 pb-1.5">
-      <span class="opacity-50">地点</span><span class="font-semibold">合肥</span>
-    </div>
-    <div class="flex justify-between border-b border-white/15 pb-1.5">
-      <span class="opacity-50">薪资</span><span class="font-bold text-green-300">行业领先</span>
-    </div>
-    <div class="flex justify-between">
-      <span class="opacity-50">对象</span><span class="font-semibold">2025.6 - 2027.8 毕业</span>
-    </div>
-  </div>
-  <a href="https://iflytek.zhiye.com/5/jobs" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 投递简历</a>
-</div>
-
-<div class="col-span-3 flex flex-col gap-3">
-  <div class="text-xs font-bold text-violet-500 uppercase tracking-widest pl-1">战略级管培生人才项目</div>
-  <div class="grid grid-cols-2 gap-2.5 flex-1">
-    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-3.5 text-white shadow-md shadow-emerald-500/30">
-      <div class="font-black text-sm">免笔试</div>
-      <div class="text-xs opacity-80 mt-0.5">流程更快，直接面试</div>
-    </div>
-    <div class="bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl p-3.5 text-white shadow-md shadow-violet-500/30">
-      <div class="font-black text-sm">放宽年限</div>
-      <div class="text-xs opacity-80 mt-0.5">2025.6 - 2027.8</div>
-    </div>
-    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3.5 text-white shadow-md shadow-blue-500/30">
-      <div class="font-black text-sm">双导师</div>
-      <div class="text-xs opacity-80 mt-0.5">一人一策定制培养</div>
-    </div>
-    <div class="bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl p-3.5 text-white shadow-md shadow-rose-500/30">
-      <div class="font-black text-sm">战略项目</div>
-      <div class="text-xs opacity-80 mt-0.5">核心业务历练</div>
-    </div>
-  </div>
-  <div class="bg-violet-50 rounded-xl px-4 py-2.5 border border-violet-100 text-xs text-violet-900 space-y-0.5 shadow-sm">
-    <div>🧠 出色的<b>学习力</b>、创新思维与<b>领导力潜质</b></div>
-    <div>🚀 对 <b>AI</b> 充满热情，志于成为公司核心管理者</div>
-  </div>
-</div>
-
-</div>
-
----
-
-## OPPO
-
-<div class="grid grid-cols-5 gap-5 mt-4 h-70">
-
-<div class="col-span-2 bg-gradient-to-br from-gray-700 to-gray-900 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-gray-900/40">
-  <div>
-    <div class="text-4xl mb-3">📱</div>
-    <div class="text-2xl font-black tracking-wide">OPPO</div>
-    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">OPPO · 2027全球校招</div>
-  </div>
-  <div class="space-y-2 text-xs">
-    <div class="flex justify-between border-b border-white/15 pb-1.5">
-      <span class="opacity-50">岗位</span><span class="font-semibold">AI/算法、软件、硬件、产品等</span>
-    </div>
-    <div class="flex justify-between border-b border-white/15 pb-1.5">
-      <span class="opacity-50">地点</span><span class="font-semibold">东莞、深圳、成都等</span>
-    </div>
-    <div class="flex justify-between border-b border-white/15 pb-1.5">
-      <span class="opacity-50">内推码</span><span class="font-bold text-yellow-300">X8994323</span>
-    </div>
-  </div>
-  <a href="https://careers.oppo.com/university/oppo/campus/post?shareId=17986" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 内推链接</a>
-</div>
-
-<div class="col-span-3 flex flex-col gap-3">
-  <div class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">全球第四大智能手机制造商 · 70+ 国家地区</div>
-  <div class="grid grid-cols-2 gap-2.5 flex-1">
-    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3.5 text-white shadow-md shadow-blue-500/30">
-      <div class="font-black text-sm">8.6</div>
-      <div class="text-xs opacity-80 mt-0.5">简历评估启动</div>
-    </div>
-    <div class="bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl p-3.5 text-white shadow-md shadow-violet-500/30">
-      <div class="font-black text-sm">8.10</div>
-      <div class="text-xs opacity-80 mt-0.5">开始面试</div>
-    </div>
-    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-3.5 text-white shadow-md shadow-emerald-500/30">
-      <div class="font-black text-sm">8.26</div>
-      <div class="text-xs opacity-80 mt-0.5">录取通知发放</div>
-    </div>
-    <div class="bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl p-3.5 text-white shadow-md shadow-rose-500/30">
-      <div class="font-black text-sm">竞争力薪资</div>
-      <div class="text-xs opacity-80 mt-0.5">多样化发展机制</div>
-    </div>
-  </div>
-  <div class="bg-gray-50 rounded-xl px-4 py-2.5 border border-gray-200 text-xs text-gray-800 shadow-sm">
-    📅 8.6 简历评估 → 8.10 面试 → 8.26 <b>录取通知</b>
   </div>
 </div>
 
@@ -439,6 +323,294 @@ layout: center
 class: text-center
 ---
 
+# 车企 / 自动驾驶
+
+<p class="text-white mt-2">新能源汽车 / 智能驾驶企业</p>
+
+<div class="flex justify-center gap-4 mt-8 flex-wrap">
+  <div class="px-6 py-4 bg-sky-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+    <div class="text-3xl mb-1">🚗</div>
+    <div class="text-sm font-bold text-white">蔚来 NIO</div>
+  </div>
+  <div class="px-6 py-4 bg-sky-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+    <div class="text-3xl mb-1">🤖</div>
+    <div class="text-sm font-bold text-white">文远知行 WeRide</div>
+  </div>
+</div>
+
+<style>
+h1 {
+  background-color: #0ea5e9;
+  background-image: linear-gradient(45deg, #38bdf8 10%, #0369a1 60%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+
+## 蔚来 NIO
+
+<div class="grid grid-cols-5 gap-5 mt-4 h-70">
+
+<div class="col-span-2 bg-gradient-to-br from-sky-500 to-blue-800 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-blue-900/40">
+  <div>
+    <div class="text-4xl mb-3">🚗</div>
+    <div class="text-2xl font-black tracking-wide">蔚来 NIO</div>
+    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">NIO · 2027技术提前批</div>
+  </div>
+  <div class="space-y-2 text-xs">
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">批次</span><span class="font-bold text-yellow-200">技术提前批</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">对象</span><span class="font-semibold">2027届应届生</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">内推码</span><span class="font-bold text-yellow-300">P5KQ5V1</span>
+    </div>
+    <div class="flex justify-between">
+      <span class="opacity-50">截止</span><span class="font-bold text-yellow-200">2026.8.14</span>
+    </div>
+  </div>
+  <a href="https://nio.jobs.feishu.cn/s/k5xVzV8mg-A" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 内推投递</a>
+</div>
+
+<div class="col-span-3 flex flex-col gap-3">
+  <div class="text-xs font-bold text-sky-500 uppercase tracking-widest pl-1">更大机会 · 更快流程 · 更高Offer命中率</div>
+  <div class="grid grid-cols-2 gap-2.5 flex-1">
+    <div class="bg-white rounded-xl p-3 border border-sky-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">🔬</span><span class="text-xs text-slate-800 font-semibold">芯片</span>
+    </div>
+    <div class="bg-white rounded-xl p-3 border border-sky-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">🤖</span><span class="text-xs text-slate-800 font-semibold">大模型 & AI算法</span>
+    </div>
+    <div class="bg-white rounded-xl p-3 border border-sky-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">🚘</span><span class="text-xs text-slate-800 font-semibold">智能辅助驾驶</span>
+    </div>
+    <div class="bg-white rounded-xl p-3 border border-sky-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">🎛️</span><span class="text-xs text-slate-800 font-semibold">智能座舱</span>
+    </div>
+    <div class="bg-white rounded-xl p-3 border border-sky-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">🦾</span><span class="text-xs text-slate-800 font-semibold">具身智能</span>
+    </div>
+    <div class="bg-white rounded-xl p-3 border border-sky-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">🔋</span><span class="text-xs text-slate-800 font-semibold">AI安全 & 电池系统</span>
+    </div>
+  </div>
+  <div class="bg-sky-50 rounded-xl px-4 py-2.5 border border-sky-100 text-xs text-sky-900 shadow-sm">
+    📅 7.15 投递 → 7.20 笔试 → 7月下旬 面试 → 8月 <b>Offer发放</b> → 8.14 关闭
+  </div>
+</div>
+
+</div>
+
+---
+
+## 文远知行 WeRide
+
+<div class="grid grid-cols-5 gap-5 mt-4 h-70">
+
+<div class="col-span-2 bg-gradient-to-br from-indigo-500 to-indigo-900 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-indigo-900/40">
+  <div>
+    <div class="text-4xl mb-3">🤖</div>
+    <div class="text-2xl font-black tracking-wide">文远知行</div>
+    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">WeRide · 2027预热</div>
+  </div>
+  <div class="space-y-2 text-xs">
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">批次</span><span class="font-bold text-yellow-200">预热中（岗位已上架）</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">地点</span><span class="font-semibold">广州/上海/北京/深圳/武汉</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">内推码</span><span class="font-bold text-yellow-300">DSTrUGcq</span>
+    </div>
+    <div class="flex justify-between">
+      <span class="opacity-50">截止</span><span class="font-semibold">待定，建议尽早投递</span>
+    </div>
+  </div>
+  <a href="https://app.mokahr.com/campus_apply/jingchi/2137?recommendCode=DSTrUGcq#/jobs" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 内推投递</a>
+</div>
+
+<div class="col-span-3 flex flex-col gap-3">
+  <div class="text-xs font-bold text-indigo-500 uppercase tracking-widest pl-1">纳斯达克上市 · 全球通用自动驾驶第一股</div>
+  <div class="grid grid-cols-2 gap-2.5 flex-1">
+    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3.5 text-white shadow-md shadow-blue-500/30">
+      <div class="font-black text-sm">10国30城</div>
+      <div class="text-xs opacity-80 mt-0.5">全球运营覆盖</div>
+    </div>
+    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl p-3.5 text-white shadow-md shadow-indigo-500/30">
+      <div class="font-black text-sm">1,700+ 天</div>
+      <div class="text-xs opacity-80 mt-0.5">持续运营天数</div>
+    </div>
+    <div class="bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl p-3.5 text-white shadow-md shadow-violet-500/30">
+      <div class="font-black text-sm">四地牌照</div>
+      <div class="text-xs opacity-80 mt-0.5">中/阿联酋/新加坡/美国</div>
+    </div>
+    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-3.5 text-white shadow-md shadow-emerald-500/30">
+      <div class="font-black text-sm">研发/硬件/市场</div>
+      <div class="text-xs opacity-80 mt-0.5">含WeStar算法岗</div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 rounded-xl px-4 py-2.5 border border-indigo-100 text-xs text-indigo-900 shadow-sm">
+    🎯 内推享<b>优先筛选 + 优先面试</b>双重特权，先投先得
+  </div>
+</div>
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# 硬件 / 手机厂
+
+<p class="text-white mt-2">消费电子 / 智能硬件企业</p>
+
+<div class="flex justify-center gap-4 mt-8 flex-wrap">
+  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+    <div class="text-3xl mb-1">📱</div>
+    <div class="text-sm font-bold text-white">OPPO</div>
+  </div>
+  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+    <div class="text-3xl mb-1">🎤</div>
+    <div class="text-sm font-bold text-white">科大讯飞</div>
+  </div>
+</div>
+
+<style>
+h1 {
+  background-color: #8b5cf6;
+  background-image: linear-gradient(45deg, #a78bfa 10%, #6d28d9 60%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+
+## OPPO
+
+<div class="grid grid-cols-5 gap-5 mt-4 h-70">
+
+<div class="col-span-2 bg-gradient-to-br from-gray-700 to-gray-900 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-gray-900/40">
+  <div>
+    <div class="text-4xl mb-3">📱</div>
+    <div class="text-2xl font-black tracking-wide">OPPO</div>
+    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">OPPO · 2027全球校招</div>
+  </div>
+  <div class="space-y-2 text-xs">
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">岗位</span><span class="font-semibold">AI/算法、软件、硬件、产品等</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">地点</span><span class="font-semibold">东莞、深圳、成都等</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">内推码</span><span class="font-bold text-yellow-300">X8994323</span>
+    </div>
+  </div>
+  <a href="https://careers.oppo.com/university/oppo/campus/post?shareId=17986" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 内推链接</a>
+</div>
+
+<div class="col-span-3 flex flex-col gap-3">
+  <div class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">全球第四大智能手机制造商 · 70+ 国家地区</div>
+  <div class="grid grid-cols-2 gap-2.5 flex-1">
+    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3.5 text-white shadow-md shadow-blue-500/30">
+      <div class="font-black text-sm">8.6</div>
+      <div class="text-xs opacity-80 mt-0.5">简历评估启动</div>
+    </div>
+    <div class="bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl p-3.5 text-white shadow-md shadow-violet-500/30">
+      <div class="font-black text-sm">8.10</div>
+      <div class="text-xs opacity-80 mt-0.5">开始面试</div>
+    </div>
+    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-3.5 text-white shadow-md shadow-emerald-500/30">
+      <div class="font-black text-sm">8.26</div>
+      <div class="text-xs opacity-80 mt-0.5">录取通知发放</div>
+    </div>
+    <div class="bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl p-3.5 text-white shadow-md shadow-rose-500/30">
+      <div class="font-black text-sm">竞争力薪资</div>
+      <div class="text-xs opacity-80 mt-0.5">多样化发展机制</div>
+    </div>
+  </div>
+  <div class="bg-gray-50 rounded-xl px-4 py-2.5 border border-gray-200 text-xs text-gray-800 shadow-sm">
+    📅 8.6 简历评估 → 8.10 面试 → 8.26 <b>录取通知</b>
+  </div>
+</div>
+
+</div>
+
+---
+
+## 科大讯飞
+
+<div class="grid grid-cols-5 gap-5 mt-4 h-70">
+
+<div class="col-span-2 bg-gradient-to-br from-violet-600 to-violet-900 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-violet-900/40">
+  <div>
+    <div class="text-4xl mb-3">🎤</div>
+    <div class="text-2xl font-black tracking-wide">科大讯飞</div>
+    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">iFlytek · 飞凡计划</div>
+  </div>
+  <div class="space-y-2 text-xs">
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">岗位</span><span class="font-semibold">研发 / 产品 / 营销</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">地点</span><span class="font-semibold">合肥</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">薪资</span><span class="font-bold text-green-300">行业领先</span>
+    </div>
+    <div class="flex justify-between">
+      <span class="opacity-50">对象</span><span class="font-semibold">2025.6 - 2027.8 毕业</span>
+    </div>
+  </div>
+  <a href="https://iflytek.zhiye.com/5/jobs" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 投递简历</a>
+</div>
+
+<div class="col-span-3 flex flex-col gap-3">
+  <div class="text-xs font-bold text-violet-500 uppercase tracking-widest pl-1">战略级管培生人才项目</div>
+  <div class="grid grid-cols-2 gap-2.5 flex-1">
+    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-3.5 text-white shadow-md shadow-emerald-500/30">
+      <div class="font-black text-sm">免笔试</div>
+      <div class="text-xs opacity-80 mt-0.5">流程更快，直接面试</div>
+    </div>
+    <div class="bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl p-3.5 text-white shadow-md shadow-violet-500/30">
+      <div class="font-black text-sm">放宽年限</div>
+      <div class="text-xs opacity-80 mt-0.5">2025.6 - 2027.8</div>
+    </div>
+    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3.5 text-white shadow-md shadow-blue-500/30">
+      <div class="font-black text-sm">双导师</div>
+      <div class="text-xs opacity-80 mt-0.5">一人一策定制培养</div>
+    </div>
+    <div class="bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl p-3.5 text-white shadow-md shadow-rose-500/30">
+      <div class="font-black text-sm">战略项目</div>
+      <div class="text-xs opacity-80 mt-0.5">核心业务历练</div>
+    </div>
+  </div>
+  <div class="bg-violet-50 rounded-xl px-4 py-2.5 border border-violet-100 text-xs text-violet-900 space-y-0.5 shadow-sm">
+    <div>🧠 出色的<b>学习力</b>、创新思维与<b>领导力潜质</b></div>
+    <div>🚀 对 <b>AI</b> 充满热情，志于成为公司核心管理者</div>
+  </div>
+</div>
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
 # 国央企
 
 <p class="text-white mt-2">国有企业 / 央企</p>
@@ -472,7 +644,7 @@ class: text-center
 <p class="text-white mt-2">科研院所 / 高校附属机构</p>
 
 <div class="flex justify-center gap-6 mt-8">
-  <div class="px-8 py-4 bg-sky-500 rounded-2xl shadow-lg opacity-60">
+  <div class="px-8 py-4 bg-slate-500 rounded-2xl shadow-lg opacity-60">
     <div class="text-3xl mb-1">⏳</div>
     <div class="text-sm font-bold text-white">信息整理中</div>
   </div>
@@ -480,8 +652,8 @@ class: text-center
 
 <style>
 h1 {
-  background-color: #0ea5e9;
-  background-image: linear-gradient(45deg, #38bdf8 10%, #0369a1 60%);
+  background-color: #64748b;
+  background-image: linear-gradient(45deg, #94a3b8 10%, #334155 60%);
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
