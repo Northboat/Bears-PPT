@@ -16,7 +16,7 @@ css: unocss
 <div class="pt-8 flex flex-col items-center gap-3">
   <p class="text-lg text-white font-semibold tracking-widest">2027届秋招 · 岗位信息汇总</p>
   <div class="flex gap-3 mt-2 flex-wrap justify-center">
-    <span class="px-3 py-1 rounded-full text-xs font-bold bg-orange-500 text-white">🏢 大厂</span>
+    <span class="px-3 py-1 rounded-full text-xs font-bold bg-orange-500 text-white">🏢 互联网大厂</span>
     <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-white">🎮 游戏厂</span>
     <span class="px-3 py-1 rounded-full text-xs font-bold bg-sky-500 text-white">🚗 车企</span>
     <span class="px-3 py-1 rounded-full text-xs font-bold bg-violet-500 text-white">📱 硬件/手机厂</span>
