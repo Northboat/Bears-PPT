@@ -43,6 +43,58 @@ h1 {
 </style>
 
 ---
+hideInToc: true
+---
+
+# 简历汇总
+
+<div class="mt-6">
+  <table class="w-full text-sm border-collapse">
+    <thead>
+      <tr class="bg-slate-100 text-slate-600">
+        <th class="px-4 py-2.5 text-left font-bold rounded-tl-xl w-24">姓名</th>
+        <th class="px-4 py-2.5 text-left font-bold">简历</th>
+        <th class="px-4 py-2.5 text-left font-bold w-32">更新时间</th>
+        <th class="px-4 py-2.5 text-left font-bold rounded-tr-xl">备注</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+        <td class="px-4 py-3 font-semibold text-slate-800">成员A</td>
+        <td class="px-4 py-3">
+          <a href="/resume/member-a.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold rounded-lg transition-colors no-underline">
+            📄 查看简历
+          </a>
+        </td>
+        <td class="px-4 py-3 text-slate-500 text-xs">2026.7.15</td>
+        <td class="px-4 py-3 text-slate-500 text-xs">占位内容，待更新</td>
+      </tr>
+      <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+        <td class="px-4 py-3 font-semibold text-slate-800">成员B</td>
+        <td class="px-4 py-3">
+          <a href="/resume/member-b.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold rounded-lg transition-colors no-underline">
+            📄 查看简历
+          </a>
+        </td>
+        <td class="px-4 py-3 text-slate-500 text-xs">2026.7.15</td>
+        <td class="px-4 py-3 text-slate-500 text-xs">占位内容，待更新</td>
+      </tr>
+      <tr class="hover:bg-slate-50 transition-colors">
+        <td class="px-4 py-3 font-semibold text-slate-800">成员C</td>
+        <td class="px-4 py-3">
+          <a href="/resume/member-c.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold rounded-lg transition-colors no-underline">
+            📄 查看简历
+          </a>
+        </td>
+        <td class="px-4 py-3 text-slate-500 text-xs">2026.7.15</td>
+        <td class="px-4 py-3 text-slate-500 text-xs">占位内容，待更新</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="mt-4 text-xs text-slate-400">* PDF 文件存放于 <code>public/resume/</code> 目录下</p>
+</div>
+
+---
 layout: center
 class: text-center
 ---
@@ -79,18 +131,26 @@ class: text-center
 
 <p class="text-white mt-2">中型互联网 / 科技企业</p>
 
-<div class="flex justify-center gap-6 mt-8">
-  <div class="px-8 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
-    <div class="text-3xl mb-1">🔵</div>
-    <div class="text-sm font-bold text-white">百度</div>
-  </div>
-  <div class="px-8 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+<div class="flex justify-center gap-4 mt-8 flex-wrap">
+  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
     <div class="text-3xl mb-1">🎮</div>
     <div class="text-sm font-bold text-white">米哈游</div>
   </div>
-  <div class="px-8 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
     <div class="text-3xl mb-1">🎤</div>
     <div class="text-sm font-bold text-white">科大讯飞</div>
+  </div>
+  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+    <div class="text-3xl mb-1">📱</div>
+    <div class="text-sm font-bold text-white">OPPO</div>
+  </div>
+  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+    <div class="text-3xl mb-1">⚔️</div>
+    <div class="text-sm font-bold text-white">莉莉丝游戏</div>
+  </div>
+  <div class="px-6 py-4 bg-violet-500 rounded-2xl shadow-lg transition-transform hover:scale-105 cursor-pointer">
+    <div class="text-3xl mb-1">🔥</div>
+    <div class="text-sm font-bold text-white">网易雷火</div>
   </div>
 </div>
 
@@ -105,59 +165,6 @@ h1 {
   -moz-text-fill-color: transparent;
 }
 </style>
-
----
-
-## 百度
-
-<div class="grid grid-cols-5 gap-5 mt-4 h-70">
-
-<div class="col-span-2 bg-gradient-to-br from-blue-600 to-blue-900 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-blue-900/40">
-  <div>
-    <div class="text-4xl mb-3">🔵</div>
-    <div class="text-2xl font-black tracking-wide">百度</div>
-    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">Baidu · 2027校招</div>
-  </div>
-  <div class="space-y-2 text-xs">
-    <div class="flex justify-between border-b border-white/15 pb-1.5">
-      <span class="opacity-50">岗位</span><span class="font-semibold">产品 / 运营 / 战略 / 财务 / HR</span>
-    </div>
-    <div class="flex justify-between border-b border-white/15 pb-1.5">
-      <span class="opacity-50">对象</span><span class="font-semibold">2027届，本科及以上</span>
-    </div>
-    <div class="flex justify-between">
-      <span class="opacity-50">截止</span><span class="font-bold text-yellow-300">2026.8.14</span>
-    </div>
-  </div>
-  <a href="https://dwz.cn/dqgINHMA" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 内推链接</a>
-</div>
-
-<div class="col-span-3 flex flex-col gap-3">
-  <div class="text-xs font-bold text-blue-500 uppercase tracking-widest pl-1">青木 · 风雷人才计划</div>
-  <div class="grid grid-cols-2 gap-2.5 flex-1">
-    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-3.5 text-white flex flex-col justify-center shadow-md shadow-orange-500/30">
-      <div class="text-xl font-black">+20%</div>
-      <div class="text-xs opacity-80 mt-0.5">较26届扩招</div>
-    </div>
-    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3.5 text-white flex flex-col justify-center shadow-md shadow-blue-500/30">
-      <div class="text-xl font-black">2+3年</div>
-      <div class="text-xs opacity-80 mt-0.5">轮岗+长期跟踪</div>
-    </div>
-    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-3.5 text-white flex flex-col justify-center shadow-md shadow-emerald-500/30">
-      <div class="text-xl font-black">双导师</div>
-      <div class="text-xs opacity-80 mt-0.5">高管带教</div>
-    </div>
-    <div class="bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl p-3.5 text-white flex flex-col justify-center shadow-md shadow-rose-500/30">
-      <div class="text-xl font-black">AI 优先</div>
-      <div class="text-xs opacity-80 mt-0.5">大模型实习经验</div>
-    </div>
-  </div>
-  <div class="bg-blue-50 rounded-xl px-4 py-2.5 border border-blue-100 text-xs text-blue-800 shadow-sm">
-    📅 网申 7.3→8.14 · 笔/群面 7月中 · 线下PK 9月 · 高管面 10月初 · <b>Offer 10月下旬</b>
-  </div>
-</div>
-
-</div>
 
 ---
 
@@ -179,10 +186,10 @@ h1 {
       <span class="opacity-50">对象</span><span class="font-semibold">2027届毕业生</span>
     </div>
     <div class="flex justify-between">
-      <span class="opacity-50">截止</span><span class="font-bold text-yellow-200">2026.7.27</span>
+      <span class="opacity-50">截止</span><span class="font-bold text-yellow-200">2026.7.24</span>
     </div>
   </div>
-  <a href="https://campus.mihoyo.com" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 campus.mihoyo.com</a>
+  <a href="https://jobs.mihoyo.com/m/?recommendationCode=ST4G&isRecommendation=true#/校园/职位" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 campus.mihoyo.com</a>
 </div>
 
 <div class="col-span-3 flex flex-col gap-3">
@@ -209,7 +216,7 @@ h1 {
   </div>
   <div class="bg-slate-800 rounded-xl px-4 py-2.5 flex items-center justify-between shadow-lg shadow-slate-900/40">
     <span class="text-xs text-amber-300 font-semibold uppercase tracking-widest">专属内推码</span>
-    <span class="text-xl font-black font-mono tracking-widest text-yellow-400">D98Y</span>
+    <span class="text-xl font-black font-mono tracking-widest text-yellow-400">ST4G</span>
   </div>
 </div>
 
@@ -267,6 +274,161 @@ h1 {
   <div class="bg-violet-50 rounded-xl px-4 py-2.5 border border-violet-100 text-xs text-violet-900 space-y-0.5 shadow-sm">
     <div>🧠 出色的<b>学习力</b>、创新思维与<b>领导力潜质</b></div>
     <div>🚀 对 <b>AI</b> 充满热情，志于成为公司核心管理者</div>
+  </div>
+</div>
+
+</div>
+
+---
+
+## OPPO
+
+<div class="grid grid-cols-5 gap-5 mt-4 h-70">
+
+<div class="col-span-2 bg-gradient-to-br from-gray-700 to-gray-900 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-gray-900/40">
+  <div>
+    <div class="text-4xl mb-3">📱</div>
+    <div class="text-2xl font-black tracking-wide">OPPO</div>
+    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">OPPO · 2027全球校招</div>
+  </div>
+  <div class="space-y-2 text-xs">
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">岗位</span><span class="font-semibold">AI/算法、软件、硬件、产品等</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">地点</span><span class="font-semibold">东莞、深圳、成都等</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">内推码</span><span class="font-bold text-yellow-300">X8994323</span>
+    </div>
+  </div>
+  <a href="https://careers.oppo.com/university/oppo/campus/post?shareId=17986" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 内推链接</a>
+</div>
+
+<div class="col-span-3 flex flex-col gap-3">
+  <div class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">全球第四大智能手机制造商 · 70+ 国家地区</div>
+  <div class="grid grid-cols-2 gap-2.5 flex-1">
+    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3.5 text-white shadow-md shadow-blue-500/30">
+      <div class="font-black text-sm">8.6</div>
+      <div class="text-xs opacity-80 mt-0.5">简历评估启动</div>
+    </div>
+    <div class="bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl p-3.5 text-white shadow-md shadow-violet-500/30">
+      <div class="font-black text-sm">8.10</div>
+      <div class="text-xs opacity-80 mt-0.5">开始面试</div>
+    </div>
+    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-3.5 text-white shadow-md shadow-emerald-500/30">
+      <div class="font-black text-sm">8.26</div>
+      <div class="text-xs opacity-80 mt-0.5">录取通知发放</div>
+    </div>
+    <div class="bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl p-3.5 text-white shadow-md shadow-rose-500/30">
+      <div class="font-black text-sm">竞争力薪资</div>
+      <div class="text-xs opacity-80 mt-0.5">多样化发展机制</div>
+    </div>
+  </div>
+  <div class="bg-gray-50 rounded-xl px-4 py-2.5 border border-gray-200 text-xs text-gray-800 shadow-sm">
+    📅 8.6 简历评估 → 8.10 面试 → 8.26 <b>录取通知</b>
+  </div>
+</div>
+
+</div>
+
+---
+
+## 莉莉丝游戏
+
+<div class="grid grid-cols-5 gap-5 mt-4 h-70">
+
+<div class="col-span-2 bg-gradient-to-br from-red-600 to-red-900 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-red-900/40">
+  <div>
+    <div class="text-4xl mb-3">⚔️</div>
+    <div class="text-2xl font-black tracking-wide">莉莉丝游戏</div>
+    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">Lilith Games · 提前批</div>
+  </div>
+  <div class="space-y-2 text-xs">
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">批次</span><span class="font-bold text-yellow-200">校招提前批 + 储备实习</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">对象</span><span class="font-semibold">2026.1 - 2027.12 毕业</span>
+    </div>
+    <div class="flex justify-between">
+      <span class="opacity-50">内推码</span><span class="font-bold text-yellow-200">长方形</span>
+    </div>
+  </div>
+  <a href="https://lilithgames.jobs.feishu.cn/s/kdlyfYu2Oto" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 提前批投递</a>
+</div>
+
+<div class="col-span-3 flex flex-col gap-3">
+  <div class="text-xs font-bold text-red-500 uppercase tracking-widest pl-1">两类机会同步开放 · 不占用正式批名额</div>
+  <div class="grid grid-cols-2 gap-2.5 flex-1">
+    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-3.5 text-white shadow-md shadow-orange-500/30">
+      <div class="font-black text-sm">技术</div>
+      <div class="text-xs opacity-80 mt-0.5">程序 / 测试 / 引擎</div>
+    </div>
+    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3.5 text-white shadow-md shadow-blue-500/30">
+      <div class="font-black text-sm">产品策划</div>
+      <div class="text-xs opacity-80 mt-0.5">数值 / 关卡 / 项目</div>
+    </div>
+    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-3.5 text-white shadow-md shadow-emerald-500/30">
+      <div class="font-black text-sm">提前批特权</div>
+      <div class="text-xs opacity-80 mt-0.5">不占正式批机会</div>
+    </div>
+    <div class="bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl p-3.5 text-white shadow-md shadow-violet-500/30">
+      <div class="font-black text-sm">储备实习</div>
+      <div class="text-xs opacity-80 mt-0.5">表现优秀可转正</div>
+    </div>
+  </div>
+  <div class="bg-red-50 rounded-xl px-4 py-2.5 border border-red-100 text-xs text-red-900 shadow-sm">
+    🎯 投递时选择「大使推荐」填写内推码 <b>长方形</b>
+  </div>
+</div>
+
+</div>
+
+---
+
+## 网易雷火
+
+<div class="grid grid-cols-5 gap-5 mt-4 h-70">
+
+<div class="col-span-2 bg-gradient-to-br from-orange-500 to-red-700 rounded-2xl p-5 flex flex-col justify-between text-white shadow-xl shadow-red-700/40">
+  <div>
+    <div class="text-4xl mb-3">🔥</div>
+    <div class="text-2xl font-black tracking-wide">网易雷火</div>
+    <div class="text-xs opacity-60 mt-1 font-medium uppercase tracking-widest">NetEase Leihuo · 2027校招</div>
+  </div>
+  <div class="space-y-2 text-xs">
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">地点</span><span class="font-semibold">杭州（海量岗位）</span>
+    </div>
+    <div class="flex justify-between border-b border-white/15 pb-1.5">
+      <span class="opacity-50">薪资</span><span class="font-bold text-yellow-200">16薪 + 六险一金</span>
+    </div>
+    <div class="flex justify-between">
+      <span class="opacity-50">福利</span><span class="font-semibold">免费三餐 + 团建旅游</span>
+    </div>
+  </div>
+  <a href="https://xiaozhao.leihuo.netease.com/neitui/#/?introduceId=xKWmfq9qD9DEtsOn" target="_blank" class="mt-4 block text-center text-xs bg-white/15 hover:bg-white/25 rounded-xl py-2 font-bold transition-all tracking-wide">🔗 内推链接</a>
+</div>
+
+<div class="col-span-3 flex flex-col gap-3">
+  <div class="text-xs font-bold text-orange-500 uppercase tracking-widest pl-1">有雷选雷，绝不踩雷 🔥</div>
+  <div class="grid grid-cols-2 gap-2.5 flex-1">
+    <div class="bg-white rounded-xl p-3 border border-orange-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">💻</span><span class="text-xs text-slate-800 font-semibold">研发 & 技术</span>
+    </div>
+    <div class="bg-white rounded-xl p-3 border border-orange-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">🤖</span><span class="text-xs text-slate-800 font-semibold">人工智能</span>
+    </div>
+    <div class="bg-white rounded-xl p-3 border border-orange-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">🧪</span><span class="text-xs text-slate-800 font-semibold">测试 & QA</span>
+    </div>
+    <div class="bg-white rounded-xl p-3 border border-orange-100 flex items-center gap-2.5 shadow-sm">
+      <span class="text-lg">🎯</span><span class="text-xs text-slate-800 font-semibold">策划 & 项目</span>
+    </div>
+  </div>
+  <div class="bg-orange-50 rounded-xl px-4 py-2.5 border border-orange-100 text-xs text-orange-900 shadow-sm">
+    🎮 《逆水寒》《永劫无间》《倩女幽魂》等重磅项目，大牛 1v1 带教
   </div>
 </div>
 
