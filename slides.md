@@ -16,7 +16,7 @@ css: unocss
 <div class="pt-8 flex flex-col items-center gap-3">
   <p class="text-lg text-white font-semibold tracking-widest">2027届秋招 · 岗位信息汇总</p>
   <div class="flex gap-3 mt-2 flex-wrap justify-center">
-    <span class="px-3 py-1 rounded-full text-xs font-bold bg-orange-500 text-white">🏢 大厂</span>
+    <span class="px-3 py-1 rounded-full text-xs font-bold bg-orange-500 text-white">🏢 互联网大厂</span>
     <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-white">🎮 游戏厂</span>
     <span class="px-3 py-1 rounded-full text-xs font-bold bg-sky-500 text-white">🚗 车企</span>
     <span class="px-3 py-1 rounded-full text-xs font-bold bg-violet-500 text-white">📱 硬件/手机厂</span>
@@ -25,6 +25,7 @@ css: unocss
   </div>
   <p class="text-sm mt-3 text-yellow-300 font-medium">投了个寂寞，祝大家上岸 🙏 按 o 总览</p>
 </div>
+
 
 
 <style>
@@ -69,7 +70,7 @@ h1 {
             📄 查看简历
           </a>
         </td>
-        <td class="px-4 py-3 text-slate-500 text-xs">2026.7.15</td>
+        <td class="px-4 py-3 text-slate-500 text-xs">2026.7.18</td>
           <td class="px-4 py-3 text-slate-500 text-xs">简历模板：<a href="https://rxresu.me/dashboard/resumes" target="_blank">rxresume</a></td>
       </tr>
       <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
